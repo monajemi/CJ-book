@@ -6,6 +6,8 @@ University with the goal of automatizing computational reproducibility for acade
 The source files of the project and more info can be found at: 
 https://github.com/monajemi/clusterjob
 
+To see an output of the book, you may visit http://web.stanford.edu/~monajemi/output/index.html
+
 Any comments or suggestion must be directed to Hatef Monajemi (monajemi@stanford.edu).
 
 
