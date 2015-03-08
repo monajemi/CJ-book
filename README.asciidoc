@@ -1,8 +1,9 @@
 Clusterjob: Automated reproducibility and hassle-free submission of computational jobs to clusters
 ==================================================================================================
 
-This book describes the usage of the foftware Clusterjob. The source files
-for the Clusterjob can be found at: 
+This book describes the usage of the software Clusterjob. Clusterjob is a project started at Stanford
+University with the goal of automatizing computational reproducibility for academic publications. 
+The source files of the project and more info can be found at: 
 https://github.com/monajemi/clusterjob
 
 Any comments or suggestion must be directed to Hatef Monajemi (monajemi@stanford.edu).
