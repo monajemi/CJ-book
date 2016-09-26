@@ -1,5 +1,5 @@
-Clusterjob: Automated reproducibility and hassle-free submission of computational jobs to clusters
-==================================================================================================
+ClusterJob: An automated system for high-throughput reproducible computational research
+=======================================================================================
 
 This book describes the usage of the software ClusterJob. ClusterJob is a project started at Stanford
 University with the goal of automatizing computational reproducibility for academic publications. 
