@@ -12,6 +12,6 @@ Any comments or suggestion must be directed to Hatef Monajemi (monajemi@stanford
 
 
 NOTE:
-This book is written using using the git-scribe toolchain, which can be found at:
+This book is written using the git-scribe toolchain, which can be found at:
 http://github.com/schacon/git-scribe 
 
