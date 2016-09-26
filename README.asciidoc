@@ -1,17 +1,15 @@
 Clusterjob: Automated reproducibility and hassle-free submission of computational jobs to clusters
 ==================================================================================================
 
-This book describes the usage of the software Clusterjob. Clusterjob is a project started at Stanford
+This book describes the usage of the software ClusterJob. ClusterJob is a project started at Stanford
 University with the goal of automatizing computational reproducibility for academic publications. 
 The source files of the project and more info can be found at: 
 https://github.com/monajemi/clusterjob
 
-To see an output of the book, you may visit http://web.stanford.edu/~monajemi/output/index.html
+To see an output of the book, you may visit http://clusterjob.org/documentation/book.html
 
 Any comments or suggestion must be directed to Hatef Monajemi (monajemi@stanford.edu).
 
 
-NOTE:
-This book is written using the git-scribe toolchain, which can be found at:
-http://github.com/schacon/git-scribe 
+NOTE: This book is written using the asciidoctor toolchain, which can be found at http://asciidoctor.org
 
