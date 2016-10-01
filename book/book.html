@@ -734,7 +734,7 @@ b.conum * { color: inherit !important; }
 <h3 id="_cj_on_github">CJ on Github</h3>
 <div class="paragraph">
 <p>You may access the CJ Github repository at <a href="https://github.com/monajemi/clusterjob" class="bare">https://github.com/monajemi/clusterjob</a><br>
-To find the CJ book project, visit <a href="https://github.com/monajemi/CJ-book" class="bare">https://github.com/monajemi/CJ-book</a></p>
+This book is a work in progress. You may find the AsciiDoc source code for this book at  <a href="https://github.com/monajemi/CJ-book" class="bare">https://github.com/monajemi/CJ-book</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -842,15 +842,31 @@ have a password-free connection to your cluster, you may skip this step.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Clone clusterjob from GitHub</p>
+<p>Clone ClusterJob from GitHub</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>Clone clusterjob to a directory where you would like to install it, say <code>~/CJ_install</code></p>
+<p>Clone ClusterJob to a directory where you would like to install it, say <code>~/CJ_install</code></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>$ git clone https://github.com/monajemi/clusterjob.git ~/CJ_install</pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Install perl dependencies</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>ClusterJob is written in perl and so depends on other perl modules. You can install
+CJ dependencies via <code>cpan</code> or <a href="http://search.cpan.org/~miyagawa/App-cpanminus-1.7042/lib/App/cpanminus.pm"><code>cpanm</code></a>. Copy and paste the following lines into your terminal:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo cpan -i Data::Dumper Data::UUID FindBin File::chdir File::Basename File::Spec IO::Socket::INET Getopt::Declare  Term::ReadLine JSON::PP JSON::XS Digest::SHA Time::Local Time::Piece Moo HTTP::Thin HTTP::Request::Common JSON URI</pre>
 </div>
 </div>
 </div>
@@ -872,7 +888,7 @@ server setup.</p>
 <pre>[MACHINE_ALIAS]
  Host    your_host
  User    your_username
- Bqs     cluster_batch_queuing_system
+ Bqs     batch_queuing_system
  Repo    CJ_remote_repo
  Matlib  Matlab libraries
 [MACHINE_ALIAS]</pre>
@@ -902,7 +918,7 @@ You can add as many machines as you want to <code>ssh_config</code>.
 information.</p>
 </div>
 <div class="paragraph">
-<p>This file contains the following infomation:</p>
+<p>This file contains the following information:</p>
 </div>
 <div class="literalblock">
 <div class="content">
