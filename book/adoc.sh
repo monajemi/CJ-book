@@ -3,3 +3,4 @@ if [ $style="" ];then
 style=foundation.css
 fi	
 asciidoctor -a stylesheet=stylesheets/$style book.asc
+asciidoctor-pdf book.asc
