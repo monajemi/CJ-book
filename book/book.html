@@ -718,9 +718,12 @@ b.conum * { color: inherit !important; }
 </li>
 <li><a href="#_cj_basics">CJ Basics</a>
 <ul class="sectlevel2">
-<li><a href="#_running_jobs">Running jobs</a>
+<li><a href="#_a_simple_matlab_example">A simple Matlab example</a>
 <ul class="sectlevel3">
-<li><a href="#_matlab_simple_example">Matlab simple example</a></li>
+<li><a href="#_running_jobs">Running Jobs</a></li>
+<li><a href="#_checking_status">Checking Status</a></li>
+<li><a href="#_getting_results">Getting Results</a></li>
+<li><a href="#_reducing_results">Reducing Results</a></li>
 </ul>
 </li>
 <li><a href="#_cj_commands">CJ commands</a></li>
@@ -734,7 +737,8 @@ b.conum * { color: inherit !important; }
 <h2 id="_getting_started">Getting Started</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>ClusterJob (CJ) is a system for automatizing reproducibility and hassle-free submission of computational jobs to remote cluster from your local machine. CJ is written in perl language and produces 'reporoducible' computational packages for academic publications. The project started at Stanford University by Hatef Monajemi and his PhD advisor David L. Donoho to make the large-scale scientific computing tasks more efficient. Current implementation allows submission of MATLAB jobs. In the future versions, we hope to include other heavily used programming languages such as Python, and R.</p>
+<p>ClusterJob (CJ) is an automation system for high-throughput reproducible computations. Using CJ, one can conduct large-scale computational studies on remote clusters in a hassle-free and reproducible manner. CJ builds 'reproducible' computational packages that are easy to share with others.
+It is written mainly in perl and has simple commands that are easy to learn. The project started at Stanford University by Hatef Monajemi and his PhD advisor David L. Donoho with the goal of making large-scale scientific computing simpler and more efficient. Current implementation allows submission of MATLAB jobs. In future, we hope to include other heavily used programming languages such as R and Python.</p>
 </div>
 <div class="sect2">
 <h3 id="_cj_on_github">CJ on Github</h3>
@@ -1057,12 +1061,13 @@ computational package from your MATLAB code and run it on a remote
 cluster in a hassle-free way.</p>
 </div>
 <div class="sect2">
-<h3 id="_running_jobs">Running jobs</h3>
+<h3 id="_a_simple_matlab_example">A simple Matlab example</h3>
 <div class="paragraph">
-<p>We will now go over a simple example to demostrate Clusterjob usage.</p>
+<p>We will now go over a simple example of running a Matlab code on
+a cluster to demonstrate the usage of ClusterJob.</p>
 </div>
 <div class="sect3">
-<h4 id="_matlab_simple_example">Matlab simple example</h4>
+<h4 id="_running_jobs">Running Jobs</h4>
 <div class="paragraph">
 <p>Suppose we would like to run the following simple matlab
 code. The code includes two <code>for</code> loops indexed by <code>i</code> and
@@ -1105,7 +1110,7 @@ the following command in a terminal.</p>
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">CJmessage::runing [simpleExample.m] on [sherlock]
 CJmessage::Sending from: /Users/hatef/github_projects/clusterjob/example/MATLAB
-CJmessage::Creating reproducible script(s) reproducible_simpleExample.m
+CJmessage::Creating reproducible script(s) reproduce_simpleExample.m
 CJmessage::Sending package 07264a5d
 CJmessage::Submitting job
 CJmessage::1 job(s) submitted (10097640)</code></pre>
@@ -1126,7 +1131,7 @@ CJmessage::1 job(s) submitted (10097640)</code></pre>
 <div class="content">
 <pre>CJmessage::parruning [simpleExample.m] on [sherlock]
 CJmessage::Sending from: /Users/hatef/github_projects/clusterjob/example/MATLAB
-CJmessage::Creating reproducible script(s) reproducible_simpleExample.m
+CJmessage::Creating reproducible script(s) reproduce_simpleExample.m
 CJmessage::Sending package 0ed00c68
 CJmessage::Submitting job(s)
 CJmessage::15 job(s) submitted (10097772-10097786)</pre>
@@ -1144,16 +1149,298 @@ The parallelization of your code happens automatically with no further effort fr
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>As you can see, each instance of the <code>run</code> command produces a reproducible package with a distinct PID (for Package IDentifier). A PID is a SHA1 code, which is essentially a 40 digits long hexadecimal number. Though
+PIDs are 40 digits long, when using CJ commands you can provide only a short version of it, which contains the initial 8 characters only.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A PID is valid as long as it is a hexadecimal number of length 8 or more
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The full PID can be retrieved using <code>$ cj info short_pid</code> command.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_checking_status">Checking Status</h4>
+<div class="paragraph">
+<p>You can check the status of your jobs using <code>state</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cj state 07264a5d
+
+pid 07264a5d33bab71c1463f651b1ff920f6d32bb1c
+remote_account: monajemi@sherlock.stanford.edu
+job_id: 10109624
+state: COMPLETED</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or for a parallel case,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cj state 0ed00c68
+
+pid 0ed00c6851c504af7d8064a954aba44cf1da40f2
+remote_account: monajemi@sherlock.stanford.edu
+1      10097772      COMPLETED
+2      10097773      COMPLETED
+3      10097774      COMPLETED
+4      10097775      COMPLETED
+5      10097776      COMPLETED
+6      10097777      COMPLETED
+7      10097778      COMPLETED
+8      10097779      COMPLETED
+9      10097780      COMPLETED
+10     10097781      COMPLETED
+11     10097782      COMPLETED
+12     10097783      COMPLETED
+13     10097784      COMPLETED
+14     10097785      COMPLETED
+15     10097786      COMPLETED</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_getting_results">Getting Results</h4>
+<div class="paragraph">
+<p>You can pull your computational package entirely or partially using <code>get</code> command.
+this command will pull the package associated with a particular <span class="red">PID</span> into a temporary directory
+on your local machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cj get 07264a5d
+
+	CJmessage::Getting results from 'sherlock'
+	CJmessage::Please see your last results in
+	/Users/hatef/CJ_get_tmp/07264a5d33bab71c1463f651b1ff920f6d32bb1c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If we now look at the contents of this package, we would see the following. You may want to take
+a moment to see what is inside each file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ ls -lt /Users/hatef/CJ_get_tmp/07264a5d33bab71c1463f651b1ff920f6d32bb1c
+total 96
+-rwxr-xr-x  1 hatef  staff  2297 Oct  6 16:19 CJ_CONFIRMATION.TXT
+-rw-r--r--  1 hatef  staff  2865 Oct  6 16:18 CJrandState.mat
+-rw-r--r--  1 hatef  staff    90 Oct  6 16:18 results.txt
+drwxr-xr-x  5 hatef  staff   170 Oct  6 16:18 logs
+drwxr-xr-x  3 hatef  staff   102 Oct  6 16:18 scripts
+-rw-r--r--  1 hatef  staff    29 Oct  6 16:17 qsub.info
+-rw-r--r--  1 hatef  staff  1606 Oct  6 16:17 bashMain.sh
+-rw-r--r--  1 hatef  staff   901 Oct  6 16:17 master.sh
+-rw-r--r--  1 hatef  staff   623 Oct  6 16:17 reproduce_simpleExample.m
+-rw-r--r--  1 hatef  staff   308 Oct  6 16:17 simpleExample.m</code></pre>
+</div>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<code>CJ_CONFIRMATION.TXT</code>
+</td>
+<td class="hdlist2">
+<p>contains confirmation that this package was run by ClusterJob.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>CJrandState.mat</code>
+</td>
+<td class="hdlist2">
+<p>contains the information about the random seed that generated the results so that other people can reproduce your results.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>results.txt</code>
+</td>
+<td class="hdlist2">
+<p>is the output of your code</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>reproduce_simpleExample.m</code>
+</td>
+<td class="hdlist2">
+<p>reproduces these results upon execution.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For a parallel package, if we use <code>get</code>, we will see the following output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cj get 0ed00c6851c504
+     CJmessage::Getting results from 'sherlock'
+     CJmessage::Run REDUCE before GET for reducing parrun packages
+     CJmessage::Please see your last results in
+	 /Users/hatef/CJ_get_tmp/0ed00c6851c504af7d8064a954aba44cf1da40f2</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For parallel packages, one typically needs to use <code>reduce</code> before <code>get</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Clearly, we are asked to use <code>reduce</code> before <code>get</code> for a parallel package. We will discuss <code>reduce</code> command
+in the next section. If we now look at the folder containing this parallel package, we see:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ ls -lt /Users/hatef/CJ_get_tmp/0ed00c6851c504af7d8064a954aba44cf1da40f2
+total 80
+-rwxr-xr-x  1 hatef  staff   2429 Oct  7 16:06 CJ_CONFIRMATION.TXT
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:28 13
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:26 15
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:26 14
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 11
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 10
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 6
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 7
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 8
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 3
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 5
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 9
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 4
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 12
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:25 2
+drwxr-xr-x  9 hatef  staff    306 Oct  6 22:24 1
+-rw-r--r--  1 hatef  staff    435 Oct  6 22:23 qsub.info
+-rw-r--r--  1 hatef  staff  11591 Oct  6 22:23 master.sh
+-rw-r--r--  1 hatef  staff    308 Oct  6 22:23 simpleExample.m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We now see 15 directories for 15 jobs submitted. If we further look into one of these directories:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ ls -lt /Users/hatef/CJ_get_tmp/0ed00c6851c504af7d8064a954aba44cf1da40f2/1
+total 40
+-rw-r--r--  1 hatef  staff  2865 Oct  6 22:24 CJrandState.mat
+-rw-r--r--  1 hatef  staff     6 Oct  6 22:24 results.txt
+drwxr-xr-x  5 hatef  staff   170 Oct  6 22:23 logs
+drwxr-xr-x  3 hatef  staff   102 Oct  6 22:23 scripts
+-rw-r--r--  1 hatef  staff  1953 Oct  6 22:23 bashMain.sh
+-rw-r--r--  1 hatef  staff   515 Oct  6 22:23 reproduce_simpleExample.m
+-rw-r--r--  1 hatef  staff   196 Oct  6 22:23 simpleExample.m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_reducing_results">Reducing Results</h4>
+<div class="paragraph">
+<p>The <code>reduce</code> command is designed for reducing the results of a parallel run into a single
+file. This is because the <code>parrun</code> command executes the <code>for</code> loops in the main script in parallel by
+generating independent sub-directories and submitting a separate job for each index combination.</p>
+</div>
+<div class="paragraph">
+<p>If we look at the <code>results.txt</code> file in sub-directories 1 and 2 for instance, we see:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cat /Users/hatef/CJ_get_tmp/0ed00c6851c504af7d8064a954aba44cf1da40f2/1/results.txt
+1,1,2
+$ cat /Users/hatef/CJ_get_tmp/0ed00c6851c504af7d8064a954aba44cf1da40f2/2/results.txt
+1,2,3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We certainly want these results to be reduced to one single <code>results.txt</code> file. This is done
+via the <code>reduce</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cj reduce results.txt 0ed00c68
+
+CJmessage::Checking progress of runs...
+CJmessage::Reducing results...
+CJmessage::Do you want to submit the reduce script to the queue via srun?(recommneded for big jobs) Y/N?
+n
+
+ SubPackage 1 Collected (6.67%)
+ SubPackage 2 Collected (13.33%)
+ SubPackage 3 Collected (20.00%)
+ SubPackage 4 Collected (26.67%)
+ SubPackage 5 Collected (33.33%)
+ SubPackage 6 Collected (40.00%)
+ SubPackage 7 Collected (46.67%)
+ SubPackage 8 Collected (53.33%)
+ SubPackage 9 Collected (60.00%)
+ SubPackage 10 Collected (66.67%)
+ SubPackage 11 Collected (73.33%)
+ SubPackage 12 Collected (80.00%)
+ SubPackage 13 Collected (86.67%)
+ SubPackage 14 Collected (93.33%)
+ SubPackage 15 Collected (100.00%)
+CJmessage::Reducing results done! Please use "CJ get 0ed00c68 " to get your results.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will produce the new file <code>results.txt</code> in the main directory, which contains:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ cat /Users/hatef/CJ_get_tmp/0ed00c6851c504af7d8064a954aba44cf1da40f2/results.txt
+1,1,2
+1,2,3
+1,3,4
+1,4,5
+1,5,6
+2,1,3
+2,2,4
+2,3,5
+2,4,6
+2,5,7
+3,1,4
+3,2,5
+3,3,6
+3,4,7
+3,5,8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>INFO: The file to reduce can be any acceptable MATLAB output, for instance <code>output.mat</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_cj_commands">CJ commands</h3>
-<div class="paragraph">
-<p>CJ can currently perform the following tasks:</p>
-</div>
-<div class="paragraph">
-<p><code>run</code>,<code>deploy</code>,<code>parrun</code>, <code>rerun</code>, <code>state</code>,<code>history</code>, <code>show</code>,<code>info</code>, <code>reduce</code>,<code>gather</code>,<code>get</code>, <code>clean</code></p>
-</div>
 <div class="paragraph">
 <p>To see a full list of options</p>
 </div>
@@ -1163,7 +1450,7 @@ The parallelization of your code happens automatically with no further effort fr
 </div>
 </div>
 <div class="paragraph">
-<p>In what follows, we go over these tasks one by one.</p>
+<p>In what follows, we review important commands.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1202,7 +1489,7 @@ The parallelization of your code happens automatically with no further effort fr
 <dl>
 <dt class="hdlist1">RERUN</dt>
 <dd>
-<p>rerun a previously failed package.</p>
+<p>To rerun a previously failed package.</p>
 </dd>
 </dl>
 </div>
@@ -1242,31 +1529,31 @@ The parallelization of your code happens automatically with no further effort fr
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">HISTORY</dt>
+<dt class="hdlist1">LOG</dt>
 <dd>
-<p>To see the last N lines of CJ history,</p>
+<p>To see the last N instances of CJ run,</p>
 </dd>
 </dl>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">cj -h[istory] &lt;N&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">cj log &lt;N&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To see the history of a particular package,</p>
+<p>To see detailed log of a particular package,</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">cj -h[istory] &lt;PACKAGE&gt;</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">cj log &lt;PACKAGE&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To see all the history</p>
+<p>To see all the packages</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">cj -h[istory] all</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">cj log all</code></pre>
 </div>
 </div>
 <div class="dlist">
