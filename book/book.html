@@ -859,9 +859,19 @@ have a password-free connection to your cluster, you may skip this step.</p>
 <div class="paragraph">
 <p>Clone ClusterJob to a directory where you would like to install it, say <code>~/CJ_install</code></p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>cd ~/
+rm -rf monajemi-clusterjob-* CJ_install
+curl -sL  https://github.com/monajemi/clusterjob/tarball/master | tar -zx -  &amp;&amp; mv monajemi-clusterjob-* CJ_install</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may also use the following alternative command to clone CJ with the entire history</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>$ git clone https://github.com/monajemi/clusterjob.git ~/CJ_install</pre>
+<pre>git clone https://github.com/monajemi/clusterjob.git ~/CJ_install</pre>
 </div>
 </div>
 </div>
@@ -879,43 +889,6 @@ CJ dependencies via <code>cpan</code> or <a href="http://search.cpan.org/~miyaga
 <div class="content">
 <pre>sudo cpan -i Data::Dumper Data::UUID FindBin File::chdir File::Basename File::Spec IO::Socket::INET Getopt::Declare  Term::ReadLine JSON::PP JSON::XS Digest::SHA Time::Local Time::Piece Moo HTTP::Thin HTTP::Request::Common JSON URI</pre>
 </div>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Provide cluster info</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>You will need to update the contents of <code>/CJ_install/ssh_config</code> file to reflect your own
-server setup.</p>
-</div>
-<div class="paragraph">
-<p>The CJ convention for each remote machine is</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>[MACHINE_ALIAS]
- Host    your_host
- User    your_username
- Bqs     batch_queuing_system
- Repo    CJ_remote_repo
- Matlib  Matlab libraries
-[MACHINE_ALIAS]</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You can add as many machines as you want to <code>ssh_config</code>.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -971,6 +944,43 @@ SYNC_INTERVAL   300</pre>
 </td>
 <td class="content">
 You must keep your CJKEY private.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Provide cluster info</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>You will need to update the contents of <code>/CJ_install/ssh_config</code> file to reflect your own
+server setup.</p>
+</div>
+<div class="paragraph">
+<p>The CJ convention for each remote machine is</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[MACHINE_ALIAS]
+ Host    your_host
+ User    your_username
+ Bqs     batch_queuing_system
+ Repo    CJ_remote_repo
+ Matlib  Matlab libraries
+[MACHINE_ALIAS]</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can add as many machines as you want to <code>ssh_config</code>.
 </td>
 </tr>
 </table>
