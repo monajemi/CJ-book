@@ -825,7 +825,7 @@ have a password-free connection to your cluster, you may skip this step.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The last step is to copy the content of your <code>~/.ssh/id_rsa.pub</code> to <code>~/.ssh/authorized_keys</code> located on the remote server</p>
+<p>The last step is to copy the content of your <code>$HOME/.ssh/id_rsa.pub</code> to <code>$HOME/.ssh/authorized_keys</code> located on the remote server</p>
 </div>
 </div>
 </div>
@@ -846,6 +846,31 @@ have a password-free connection to your cluster, you may skip this step.</p>
 </div>
 </li>
 </ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Some clusters use the so-called Multi-Factor Authentication (e.g., Duo Two-Factor). In this
+case, each time you log on, you need to provide an additional code. In order to avoid it, you need to
+add the following lines for each cluster (here <code>corn.stanford.edu</code>) to your local <code>$HOME/.ssh/config</code> file.
+This will create a tunnel on your first login, and uses the same tunnel for your subsequent connections.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">Host corn corn?? corn.stanford.edu corn??.stanford.edu
+ 	ControlMaster auto
+ 	ControlPath ~/.ssh/%r@%h:%p
+ 	ControlPersist yes</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -887,7 +912,7 @@ CJ dependencies via <code>cpan</code> or <a href="http://search.cpan.org/~miyaga
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>sudo cpan -i Data::Dumper Data::UUID FindBin File::chdir File::Basename File::Spec IO::Socket::INET Getopt::Declare  Term::ReadLine JSON::PP JSON::XS Digest::SHA Time::Local Time::Piece Moo HTTP::Thin HTTP::Request::Common JSON URI</pre>
+<pre>sudo cpan -i Data::Dumper Data::UUID FindBin File::chdir File::Basename File::Spec IO::Socket::INET IO::Socket::SSL Getopt::Declare  Term::ReadLine JSON::PP JSON::XS Digest::SHA Time::Local Time::Piece Moo HTTP::Thin HTTP::Request::Common JSON URI</pre>
 </div>
 </div>
 </div>
@@ -969,7 +994,8 @@ server setup.</p>
  User    your_username
  Bqs     batch_queuing_system
  Repo    CJ_remote_repo
- Matlib  Matlab libraries
+ MAT     Matlab version
+ MATlib  Matlab libraries
 [MACHINE_ALIAS]</pre>
 </div>
 </div>
