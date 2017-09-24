@@ -737,8 +737,8 @@ b.conum * { color: inherit !important; }
 <h2 id="_getting_started">Getting Started</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>ClusterJob (CJ) is an automation system for high-throughput reproducible computations. Using CJ, one can conduct large-scale computational studies on remote clusters in a hassle-free and reproducible manner. CJ builds 'reproducible' computational packages that are easy to share with others.
-It is written mainly in perl and has simple commands that are easy to learn. The project started at Stanford University by Hatef Monajemi and his PhD advisor David L. Donoho with the goal of making large-scale scientific computing simpler and more efficient. Current implementation allows submission of MATLAB jobs. In future, we hope to include other heavily used programming languages such as R and Python.</p>
+<p>ClusterJob (CJ) is an automation system for massive computational experiments. Using CJ, one can conduct large-scale computational studies on remote clusters in a painless and reproducible manner. CJ builds 'reproducible' computational packages that are easy to reuse and share with others.
+CJ is written mainly in perl and has simple commands that are easy to learn. The project started at Stanford University by Hatef Monajemi and his PhD advisor David L. Donoho with the goal of making large-scale scientific computing simpler and more efficient. Current implementation allows submission of Matlab and Python jobs.</p>
 </div>
 <div class="sect2">
 <h3 id="_cj_on_github">CJ on Github</h3>
@@ -993,14 +993,14 @@ server setup.</p>
 <div class="literalblock">
 <div class="content">
 <pre>[MACHINE_ALIAS]
- Host    your_host
- User    your_username
- Bqs     batch_queuing_system
- Repo    CJ_remote_repo
- MAT     Matlab version
- MATlib  Matlab libraries
- MAT     Matlab version
- MATlib  Matlab libraries
+ Host    	your host
+ User    	your username
+ Bqs     	batch queue system
+ Repo    	CJ remote repository
+ MAT     	Matlab version
+ MATlib  	Matlab libraries
+ Python	    Python version
+ Pythonlib  Python packages/channels
 [MACHINE_ALIAS]</pre>
 </div>
 </div>
@@ -1045,8 +1045,8 @@ You can add as many machines as you want to <code>ssh_config</code>.
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>echo "alias cj1='perl ~/CJ_install/src/CJ.pl'" &gt;&gt; ~/.bashrc
-echo "alias cj1='perl ~/CJ_install/src/CJ.pl'" &gt;&gt; ~/.profile</pre>
+<pre>$ echo "alias cj='perl ~/CJ_install/src/CJ.pl'" &gt;&gt; ~/.bashrc
+$ echo "alias cj='perl ~/CJ_install/src/CJ.pl'" &gt;&gt; ~/.profile</pre>
 </div>
 </div>
 </div>
@@ -1736,7 +1736,7 @@ The file to reduce can be any acceptable MATLAB output, for instance <code>outpu
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br>
-Last updated 2017-09-24 01:04:05 PDT
+Last updated 2017-09-24 01:39:46 PDT
 </div>
 </div>
 </body>
