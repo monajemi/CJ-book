@@ -996,7 +996,26 @@ server setup.</p>
  Repo    CJ_remote_repo
  MAT     Matlab version
  MATlib  Matlab libraries
+ MAT     Matlab version
+ MATlib  Matlab libraries
 [MACHINE_ALIAS]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[sherlock]
+Host		login.sherlock.stanford.edu
+User		monajemi
+Bqs			SLURM
+Repo		/scratch/users/monajemi/CJRepo_Remote
+MAT     	matlab/R2017a
+MATlib		~/BPDN/CVX/cvx:~/mosek/7/toolbox/r2013a
+Python		python/3.6
+Pythonlib	scipy:cuda80:torchvision:pytorch:-c soumith
+[sherlock]</pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1023,7 +1042,8 @@ You can add as many machines as you want to <code>ssh_config</code>.
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>alias cj='perl ~/CJ_install/src/CJ.pl';</pre>
+<pre>echo "alias cj1='perl ~/CJ_install/src/CJ.pl'" &gt;&gt; ~/.bashrc
+echo "alias cj1='perl ~/CJ_install/src/CJ.pl'" &gt;&gt; ~/.profile</pre>
 </div>
 </div>
 </div>
